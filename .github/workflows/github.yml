@@ -2,10 +2,12 @@ name: Python package
 on:
   push:
 env:
-  PYTHON_VERSION: 3.7
+  PYTHON_VERSION: 3.8
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python
@@ -15,5 +17,12 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install -r requirements.txt 
-        python -m pytest
+        pip install -r requirements.txt
+
+    - name: Lint with flake8
+      run: |
+        flake8 .
+
+    - name: Test with pytest
+      run: |
+        pytest
